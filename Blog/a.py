@@ -91,11 +91,12 @@ class Students:
 
     def remove(self, std_id):
         self.std_id = std_id
-        if self.df_under_grd[self.df_under_grd['Student ID']==  self.std_id]:
-            name = self.df_under_grd['Full Name'][self.df_under_grd['Student ID'] == self.std_id]
-            self.df_under_grd = self.df_under_grd.drop(self.df_under_grd[self.df_under_grd == self.std_id].index)
-            print(f'{name} is succesfully removed! ')
-        elif df_post_grd[df_post_grd['Student ID']== self.std_id]:
+        self.df = pd.concat([self.df_under_grd, self.df_post_grd], keys=['UnderGraduate', 'PostGraduate'])
+        # if self.df_under_grd[self.df_under_grd['Student ID'] ==  self.std_id]:
+        name = self.df['Full Name'][self.df['Student ID'] == self.std_id]
+        self.df = self.df_under_grd.drop(self.df_under_grd[self.df_under_grd == self.std_id].index)
+        print(f'{name} is succesfully removed! ')
+        if df_post_grd[df_post_grd['Student ID']== self.std_id]:
             name = df_post_grd['Full Name'][df_post_grd['Student ID'] == self.std_id]
             df_post_grd = df_post_grd.drop(df_post_grd[df_post_grd == self.std_id].index)
             print(f'{name} is succesfully removed! ')
@@ -118,9 +119,9 @@ class Students:
     
     @property
     def display_all(self):
-        return self.df
-        # print(f'Undergraduate students: \n {self.df_under_grd}')
-        # print(f'Postgraduate students: \n {self.df_post_grd}')
+        # return self.df
+        print(f'Undergraduate students: \n {self.df_under_grd}')
+        print(f'Postgraduate students: \n {self.df_post_grd}')
 
 stud = Students()
 # stud.add
